@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPooling2D, Input
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, precision_recall_curve, average_precision_score
 
 (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
 
@@ -35,6 +35,15 @@ plt.xlabel('Епоха')
 plt.ylabel('Точність')
 plt.legend()
 plt.savefig('mnist_accuracy.png')
+plt.close()
+
+plt.plot(history.history['loss'], label='Тренування (Loss)')
+plt.plot(history.history['val_loss'], label='Валідація (Loss)')
+plt.title('Функція втрат (Loss)')
+plt.xlabel('Епоха')
+plt.ylabel('Loss')
+plt.legend()
+plt.savefig('mnist_loss.png')
 plt.close()
 
 y_pred_probs = model.predict(X_test)
